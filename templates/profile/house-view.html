@@ -1,0 +1,116 @@
+{% load static %}
+
+<html>
+
+    <head>
+
+        <meta charset="utf-8"/>
+
+        <meta name="viewport" vontent="width-device-width, initial-scale=1, maximum-scale=1"/>
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+        
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/solar/bootstrap.min.css">
+
+        <title> House Hunt | View Houses </title>
+
+    </head>
+
+    {% include 'profile/base.html' %}
+
+    <br>
+
+    <h1> House Hunt | House View </h1>
+
+    <body>
+        <div class="compare-container-wrapper">
+
+            <!-- Top Left : Neighborhood Map -->
+            <div class="view_house_container_img"> <img style="height: 380px; width: 525px;" src="{% static 'images/neighborhoods.png' %}" alt="Philly Neighborhoods"/> </div>
+            
+            <!-- Top Middle : House information -->
+            <div class="view_house_container_nonmap">
+                <h2> {{house.address}} </h2>
+                <p> <a class="btn btn-outline-info navbar-btn" type="button" href="https://{{house.web_address}}" target="_blank"> Link to the Listing </a> </p>
+                <p> Neighborhood: {{house.get_neighborhood_display}}</p>
+                <p> Price:  ${{house.price}}/month &nbsp; &nbsp; | &nbsp; &nbsp; Sq. Footage:  {{house.sq_footage}} ft</p>
+                <p> {{house.beds}} bedrooms &nbsp; &nbsp; | &nbsp; &nbsp; {{house.bathrooms}} bathrooms</p>
+                <p> Type of Home: {{house.get_type_of_home_display}}</p>
+                <p> Pet Permission: {{house.get_pet_permission_display}}</p>
+                <p> <a class="btn btn-outline-info navbar-btn" type="button" href="{% url 'update-house' house.id%}"> Update House Info </a> &nbsp; 
+                    &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp; <a class="btn btn-outline-primary navbar-btn" type="button" href="{{house.web_address}}"> Archive House </a> </p>
+
+            </div>
+            
+            <!-- Top Right : Status  and Scores -->
+            <div class="view_house_container_nonmap">
+
+                <h2> Scores </h2>
+                <p> Food: {{house.food_score}} &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp; Nightlife: {{house.nightlife_score}} </p>
+                <p> Shopping: {{house.shopping_score}} &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp; Errands: {{house.errand_stores_score}}</p>
+                <p> Distance to Park Score: {{house.distance_to_park_score}}</p>
+                <br>
+                <h2> Status</h2>
+                <!-- Update the below line so that the hyperlinks ask if you're sure you want to archive and on yes, it does that and redirects you-->
+                <p> <a class="btn btn-outline-info navbar-btn" type="button" href="{% url 'update-status' house.id %}"> Update Status </a> </p>
+                <p> Date Available: {{house.date_available}} &nbsp; &nbsp; | &nbsp; &nbsp; Application Status: {{house.applied_status}} </p>
+                <p> Next Steps: &nbsp; {{house.next_steps}} </p>
+                <br>
+
+            </div>
+
+            <!-- Bottom Left : Google Map -->
+            <div class="view_house_container_img"> <img style="height: 380px; width: 525px;" src="https://maps.googleapis.com/maps/api/staticmap?center=39.940946,-75.179623&zoom=13&size=515x390&markers=color:blue|label:H|{{house.latitude}},{{house.longitude}}&markers=color:red|label:W|{{uc.work_lat}},{{uc.work_long}}&key=AIzaSyD6TEGiGHpX80TkzkP5VIKlyPl0lWFNo7k"/> </div>
+
+            <!-- Bottom Middle : Notes -->
+            <div class="view_house_container_nonmap">
+
+                <h2> Notes </h2>
+                <p> <a class="btn btn-outline-info navbar-btn" type="button" href="{% url 'update-notes' house.id %}"> Update Notes </a> </p>
+                <p> Rooms: {{house.room_notes}} </p>
+                <p> Bathrooms: {{house.bathroom_notes}} </p>
+                <p> Kitchen: {{house.kitchen_notes}}</p>
+                <p> Dog: {{house.dog_notes}} </p>
+                <p> Parking: {{house.parking_notes}}</p>
+                <!-- Need to figure out how to display out-->
+                <p> Storage: {{house.storage_bool}} &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp; Outdoor Area: {{house.outdoor_bool}} </p>
+                
+
+            </div>
+        
+            <!-- Bottom Right : Commutes -->
+            <div class="view_house_container_nonmap">
+
+                <h2> Commutes </h2>
+                <p> <a class="btn btn-outline-info navbar-btn" type="button" href="{% url 'update-commutes' house.id%}"> Calculate Commutes </a> </p>
+                
+                <br>
+
+                <div class="commute-container">
+                    
+                    <div class="commute-section">
+                        <h3> Work </h3>
+                        <div class="commute-body"> 
+                            <p> Bus: {{house.bus_commute_work}}</p>
+                            <p> Car: {{house.car_commute_work}}</p>
+                            <p> Walk (Time): {{house.walk_commute_work}}</p>
+                            <p> Walk (Dist): {{house.walk_dist_commute_gym}}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="commute-section">
+                        <h3> Gym </h3>
+                        <div class="commute-body">
+                            <p> Bus: {{house.bus_commute_gym}}</p>
+                            <p> Car: {{house.car_commute_gym}}</p>
+                            <p> Walk (Time): {{house.walk_commute_gym}}</p>
+                            <p> Walk (Dist): {{house.walk_dist_commute_gym}}</p>
+                        </div>
+                    </div>
+
+                </div>
+                
+            </div>
+    </body>
+
+</html>

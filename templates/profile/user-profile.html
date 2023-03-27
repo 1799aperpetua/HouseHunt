@@ -1,0 +1,62 @@
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+<html>
+
+    <head>
+
+        <meta charset="utf-8"/>
+
+        <meta name="viewport" content="width-device-width, initial-scale=1, maximum-scale=1"/>
+
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/solar/bootstrap.min.css">
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+        <title> House Hunt | Add a House </title>
+
+    </head>
+
+    {% include 'profile/base.html' %}
+
+    <br>
+
+    <br>
+
+    <h1 class="text-center"> Add a House </h1>
+
+    <hr>
+
+    <div class="container bg-white shadow-md p-5 form-layout" style="margin-top:20px;">
+    
+        <h1> House </h1>
+
+        <br>
+
+        <br>
+
+        <form method="POST" autocomplete="off">
+
+            {% csrf_token %}
+
+            <p> Username: {{ profile.user.username }} </p>
+
+            <br>
+
+            <p> Word Address: {{ profile.work_address }} </p>
+            
+            <br>
+
+            <p> Gym Address: {{ profile.gym_address }} </p>
+
+
+            <br> <br>
+
+            <a href="{% url 'update-profile' %}"> Update Profile </a>
+
+        </form>
+    
+    </div>
+
+</html>

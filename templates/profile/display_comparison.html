@@ -1,0 +1,273 @@
+{% load static %}
+
+<html>
+
+    <head>
+
+        <meta charset="utf-8"/>
+
+        <meta name="viewport" vontent="width-device-width, initial-scale=1, maximum-scale=1"/>
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+        
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/solar/bootstrap.min.css">
+
+        <title> House Hunt | Compare Houses </title>
+
+    </head>
+
+    {% include 'profile/base.html' %}
+
+    <br>
+
+    <!-- Vision
+    
+        Container across the top for the google map
+
+        3 Containers below containing the mini containers for each of our 3 houses to compare
+        If we only have 2 I want it to only show 2 containers
+
+    -->
+
+    <body>
+
+        
+        {% if house3 %}
+            <div class="maps_wrapper"> 
+                <img style="border: 1px solid black;" src="https://maps.googleapis.com/maps/api/staticmap?center=39.940946,-75.179623&zoom=11&size=400x400&markers=color:blue|label:A|{{house1.latitude}},{{house1.longitude}}&markers=color:red|label:B|{{house2.latitude}},{{house2.longitude}}&markers=color:green|label:C|{{house3.latitude}},{{house3.longitude}}&key=AIzaSyD6TEGiGHpX80TkzkP5VIKlyPl0lWFNo7k"/> 
+                <img style="border: 1px solid black;" src="https://maps.googleapis.com/maps/api/staticmap?center=39.940946,-75.179623&zoom=13&size=400x400&markers=color:blue|label:A|{{house1.latitude}},{{house1.longitude}}&markers=color:red|label:B|{{house2.latitude}},{{house2.longitude}}&markers=color:green|label:C|{{house3.latitude}},{{house3.longitude}}&key=AIzaSyD6TEGiGHpX80TkzkP5VIKlyPl0lWFNo7k"/>
+                <img style="border: 1px solid black;" src="https://maps.googleapis.com/maps/api/staticmap?center=39.938202,-75.170201&zoom=14&size=400x400&markers=color:blue|label:A|{{house1.latitude}},{{house1.longitude}}&markers=color:red|label:B|{{house2.latitude}},{{house2.longitude}}&markers=color:green|label:C|{{house3.latitude}},{{house3.longitude}}&key=AIzaSyD6TEGiGHpX80TkzkP5VIKlyPl0lWFNo7k"/>
+            </div>
+                
+        {% else %}
+            <div class="maps_wrapper"> 
+                <img style="border: 1px solid black;" src="https://maps.googleapis.com/maps/api/staticmap?center=39.940946,-75.179623&zoom=11&size=400x400&markers=color:blue|label:A|{{house1.latitude}},{{house1.longitude}}&markers=color:red|label:B|{{house2.latitude}},{{house2.longitude}}&key=AIzaSyD6TEGiGHpX80TkzkP5VIKlyPl0lWFNo7k"/>
+                <img style="border: 1px solid black;" src="https://maps.googleapis.com/maps/api/staticmap?center=39.940946,-75.179623&zoom=13&size=400x400&markers=color:blue|label:A|{{house1.latitude}},{{house1.longitude}}&markers=color:red|label:B|{{house2.latitude}},{{house2.longitude}}&key=AIzaSyD6TEGiGHpX80TkzkP5VIKlyPl0lWFNo7k"/>
+                <img style="border: 1px solid black;" src="https://maps.googleapis.com/maps/api/staticmap?center=39.938202,-75.170201&zoom=14&size=400x400&markers=color:blue|label:A|{{house1.latitude}},{{house1.longitude}}&markers=color:red|label:B|{{house2.latitude}},{{house2.longitude}}&key=AIzaSyD6TEGiGHpX80TkzkP5VIKlyPl0lWFNo7k"/> 
+            </div>    
+        {% endif %}
+        
+        <!-- LevelA - Hold our 2 or 3 house objects to be displayed for comparison | prev: holder -->
+        <div class="levelA_container">
+
+        {% if house1 %}
+            <!-- LevelB - House | prev: compare-container-wrapper -->
+            <div class="levelB_container">
+                
+
+                <!-- LevelC - 1 : House information | prev: view_house_container_nonmap -->
+                <div class="levelC_container">
+                     <h2 style="text-align: center;"> {{house1.address}} &nbsp; <span class="blueA"> A </span> </h2>
+                    <p class="center bottom_border"> <a class="btn btn-outline-info navbar-btn" type="button" href="https://{{house1.web_address}}" target="_blank"> Link to the Listing </a> &nbsp; &nbsp; &nbsp; 
+                        <a class="btn btn-outline-info navbar-btn" type="button" href="{% url 'update-house' house1.id%}"> Update House Info </a> </p>
+                    <p class="center"> Neighborhood: {{house1.get_neighborhood_display}}</p>
+                    <p class="center"> ${{house1.price}}/month &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {{house1.sq_footage}} Sq Ft </p>
+                    <p class="center"> {{house1.beds}} bedrooms &nbsp; &nbsp; &nbsp; &nbsp; {{house1.bathrooms}} bathrooms</p>
+                    <p class="center bottom_border"> Type of Home: {{house1.get_type_of_home_display}} &nbsp; &nbsp; &nbsp; &nbsp; Pet Permission: {{house1.get_pet_permission_display}}</p>
+
+                    <h2 style="text-align: center;"> Status &nbsp; &nbsp; <a class="btn btn-outline-info navbar-btn" type="button" href="{% url 'update-status' house1.id %}"> Update Status </a> </h2>
+                    <p class=center> Date Available: {{house1.date_available}} &nbsp; &nbsp; &nbsp; &nbsp; Application Status: {{house1.applied_status}} </p>
+                    <p class="center"> Next Steps: {{house1.next_steps}} </p>
+                    <!-- <p>  </p> -->
+
+                </div>
+                
+
+                <!-- LevelC - 2 : Notes and Scores -->
+                <div class="levelC_container">
+
+                    <h2 style="text-align: center;"> Scores </h2>
+                    <p class="center"> Food: {{house1.food_score}} &nbsp; &nbsp; &nbsp; &nbsp; Nightlife: {{house1.nightlife_score}} &nbsp; &nbsp; &nbsp; &nbsp; 
+                        Shopping: {{house1.shopping_score}} &nbsp; &nbsp; &nbsp; &nbsp; Errands: {{house1.errand_stores_score}} &nbsp; &nbsp; &nbsp; &nbsp; </p>
+                    <p class="center"> Distance to Park Score: {{house1.distance_to_park_score}} </p>
+                    <p class="center bottom_border"> Storage: {{house1.storage_bool}} &nbsp; &nbsp; &nbsp; &nbsp; Outdoor Area: {{house1.outdoor_bool}} </p>
+
+                    <h2 style="text-align: center;"> Notes &nbsp; &nbsp; <a class="btn btn-outline-info navbar-btn" type="button" href="{% url 'update-notes' house1.id %}"> Update Notes </a> </h2>
+                    <div class="note_wrapper">
+                        <div class="levelC_note_container"> <p> Rooms: {{house1.room_notes}} </p> </div>
+                        <div class="levelC_note_container"> <p> Bathrooms: {{house1.bathroom_notes}} </p> </div>
+                        <div class="levelC_note_container"> <p> Kitchen: {{house1.kitchen_notes}}</p> </div>
+                        <div class="levelC_note_container"> <p> Dog: {{house1.dog_notes}} </p> </div>
+                        <div class="levelC_note_container"> <p> Parking: {{house1.parking_notes}}</p> </div>
+                    </div>                                        
+
+                </div>
+            
+                <!-- LevelC - 4 : Commutes -->
+                <div class="levelC_container">
+
+                    <h2 style="text-align: center; "> Commutes </h2>
+
+                    <div class="commute_wrapper">
+
+                        <div class="commute_container">
+
+                            <h2 style="text-align: center; margin-top: 10px; border-bottom: 1px solid black; padding-bottom: 9px"> Work </h2>
+                            <p class="center"> Bus: {{house1.bus_commute_work}} </p>
+                            <p class="center"> Car: {{house1.car_commute_work}}</p>
+                            <p class="center"> Walk: {{house1.walk_commute_work}} <br> &nbsp; &nbsp; &nbsp; &nbsp; {{house1.walk_dist_commute_work}}</p>
+                        </div>
+
+                        <div class="commute_container">
+
+                            <h2 style="text-align: center; margin-top: 10px; border-bottom: 1px solid black; padding-bottom: 9px;"> Gym </h2>
+                            <p class="center"> Bus: {{house1.bus_commute_gym}} </p>
+                            <p class="center"> Car: {{house1.car_commute_gym}}</p>
+                            <p class="center"> Walk: {{house1.walk_commute_gym}} <br> &nbsp; &nbsp; &nbsp; &nbsp; {{house1.walk_dist_commute_gym}}</p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        {% endif %}
+
+        {% if house2 %}
+            <!-- LevelB - House | prev: compare-container-wrapper -->
+            <div class="levelB_container">
+                
+
+                <!-- LevelC - 1 : House information | prev: view_house_container_nonmap -->
+                <div class="levelC_container">
+                    <h2 style="text-align: center;"> {{house2.address}} &nbsp; <span class="redB"> B </span></h2>
+                    <p class="center bottom_border"> <a class="btn btn-outline-info navbar-btn" type="button" href="https://{{house2.web_address}}" target="_blank"> Link to the Listing </a> &nbsp; &nbsp; &nbsp; 
+                        <a class="btn btn-outline-info navbar-btn" type="button" href="{% url 'update-house' house2.id%}"> Update House Info </a> </p>
+                    <p class="center"> Neighborhood: {{house2.get_neighborhood_display}}</p>
+                    <p class="center"> ${{house2.price}}/month &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {{house2.sq_footage}} Sq Ft</p>
+                    <p class="center"> {{house2.beds}} bedrooms &nbsp; &nbsp; &nbsp; &nbsp; {{house2.bathrooms}} bathrooms</p>
+                    <p class="center bottom_border"> Type of Home: {{house2.get_type_of_home_display}} &nbsp; &nbsp; &nbsp; &nbsp; Pet Permission: {{house2.get_pet_permission_display}}</p>
+
+                    <h2 style="text-align: center;"> Status &nbsp; &nbsp; <a class="btn btn-outline-info navbar-btn" type="button" href="{% url 'update-status' house2.id %}"> Update Status </a> </h2>
+                    <p class=center> Date Available: {{house2.date_available}} &nbsp; &nbsp; &nbsp; &nbsp; Application Status: {{house2.applied_status}} </p>
+                    <p class="center"> Next Steps: {{house2.next_steps}} </p>
+                    <!-- <p>  </p> -->
+
+                </div>
+                
+
+                <!-- LevelC - 2 : Notes and Scores -->
+                <div class="levelC_container">
+
+                    <h2 style="text-align: center;"> Scores </h2>
+                    <p class="center"> Food: {{house2.food_score}} &nbsp; &nbsp; &nbsp; &nbsp; Nightlife: {{house2.nightlife_score}} &nbsp; &nbsp; &nbsp; &nbsp; 
+                        Shopping: {{house2.shopping_score}} &nbsp; &nbsp; &nbsp; &nbsp; Errands: {{house2.errand_stores_score}} &nbsp; &nbsp; &nbsp; &nbsp; </p>
+                    <p class="center"> Distance to Park Score: {{house2.distance_to_park_score}} </p>
+                    <p class="center bottom_border"> Storage: {{house2.storage_bool}} &nbsp; &nbsp; &nbsp; &nbsp; Outdoor Area: {{house2.outdoor_bool}} </p>
+
+                    <h2 style="text-align: center;"> Notes &nbsp; &nbsp; <a class="btn btn-outline-info navbar-btn" type="button" href="{% url 'update-notes' house2.id %}"> Update Notes </a> </h2>
+                    <div class="note_wrapper">
+                        <div class="levelC_note_container"> <p> Rooms: {{house2.room_notes}} </p> </div>
+                        <div class="levelC_note_container"> <p> Bathrooms: {{house2.bathroom_notes}} </p> </div>
+                        <div class="levelC_note_container"> <p> Kitchen: {{house2.kitchen_notes}}</p> </div>
+                        <div class="levelC_note_container"> <p> Dog: {{house2.dog_notes}} </p> </div>
+                        <div class="levelC_note_container"> <p> Parking: {{house2.parking_notes}}</p> </div>
+                    </div>                                        
+
+                </div>
+            
+                <!-- LevelC - 4 : Commutes -->
+                <div class="levelC_container">
+
+                    <h2 style="text-align: center; "> Commutes </h2>
+
+                    <div class="commute_wrapper">
+
+                        <div class="commute_container">
+
+                            <h2 style="text-align: center; margin-top: 10px; border-bottom: 1px solid black; padding-bottom: 9px"> Work </h2>
+                            <p class="center"> Bus: {{house2.bus_commute_work}} </p>
+                            <p class="center"> Car: {{house2.car_commute_work}}</p>
+                            <p class="center"> Walk: {{house2.walk_commute_work}} <br> &nbsp; &nbsp; &nbsp; &nbsp; {{house2.walk_dist_commute_work}}</p>
+                        </div>
+
+                        <div class="commute_container">
+
+                            <h2 style="text-align: center; margin-top: 10px; border-bottom: 1px solid black; padding-bottom: 9px;"> Gym </h2>
+                            <p class="center"> Bus: {{house2.bus_commute_gym}} </p>
+                            <p class="center"> Car: {{house2.car_commute_gym}}</p>
+                            <p class="center"> Walk: {{house2.walk_commute_gym}} <br> &nbsp; &nbsp; &nbsp; &nbsp; {{house2.walk_dist_commute_gym}}</p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        {% endif %}
+
+        {% if house3 %}
+            <!-- LevelB - House | prev: compare-container-wrapper -->
+            <div class="levelB_container">
+                
+
+                <!-- LevelC - 1 : House information | prev: view_house_container_nonmap -->
+                <div class="levelC_container">
+                    <h2 style="text-align: center;"> {{house3.address}} &nbsp; <span class="greenC"> C </span> </h2>
+                    <p class="center bottom_border"> <a class="btn btn-outline-info navbar-btn" type="button" href="https://{{house3.web_address}}" target="_blank"> Link to the Listing </a> &nbsp; &nbsp; &nbsp; 
+                        <a class="btn btn-outline-info navbar-btn" type="button" href="{% url 'update-house' house3.id%}"> Update House Info </a> </p>
+                    <p class="center"> Neighborhood: {{house3.get_neighborhood_display}}</p>
+                    <p class="center"> ${{house3.price}}/month &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {{house3.sq_footage}} Sq Ft</p>
+                    <p class="center"> {{house3.beds}} bedrooms &nbsp; &nbsp; &nbsp; &nbsp; {{house3.bathrooms}} bathrooms</p>
+                    <p class="center bottom_border"> Type of Home: {{house3.get_type_of_home_display}} &nbsp; &nbsp; &nbsp; &nbsp; Pet Permission: {{house3.get_pet_permission_display}}</p>
+
+                    <h2 style="text-align: center;"> Status &nbsp; &nbsp; <a class="btn btn-outline-info navbar-btn" type="button" href="{% url 'update-status' house3.id %}"> Update Status </a> </h2>
+                    <p class=center> Date Available: {{house3.date_available}} &nbsp; &nbsp; &nbsp; &nbsp; Application Status: {{house3.applied_status}} </p>
+                    <p class="center"> Next Steps: {{house3.next_steps}} </p>
+                    <!-- <p>  </p> -->
+
+                </div>
+                
+
+                <!-- LevelC - 2 : Notes and Scores -->
+                <div class="levelC_container">
+
+                    <h2 style="text-align: center;"> Scores </h2>
+                    <p class="center"> Food: {{house3.food_score}} &nbsp; &nbsp; &nbsp; &nbsp; Nightlife: {{house3.nightlife_score}} &nbsp; &nbsp; &nbsp; &nbsp; 
+                        Shopping: {{house3.shopping_score}} &nbsp; &nbsp; &nbsp; &nbsp; Errands: {{house3.errand_stores_score}} &nbsp; &nbsp; &nbsp; &nbsp; </p>
+                    <p class="center"> Distance to Park Score: {{house3.distance_to_park_score}} </p>
+                    <p class="center bottom_border"> Storage: {{house3.storage_bool}} &nbsp; &nbsp; &nbsp; &nbsp; Outdoor Area: {{house3.outdoor_bool}} </p>
+
+                    <h2 style="text-align: center;"> Notes &nbsp; &nbsp; <a class="btn btn-outline-info navbar-btn" type="button" href="{% url 'update-notes' house3.id %}"> Update Notes </a> </h2>
+                    <div class="note_wrapper">
+                        <div class="levelC_note_container"> <p> Rooms: {{house3.room_notes}} </p> </div>
+                        <div class="levelC_note_container"> <p> Bathrooms: {{house3.bathroom_notes}} </p> </div>
+                        <div class="levelC_note_container"> <p> Kitchen: {{house3.kitchen_notes}}</p> </div>
+                        <div class="levelC_note_container"> <p> Dog: {{house3.dog_notes}} </p> </div>
+                        <div class="levelC_note_container"> <p> Parking: {{house3.parking_notes}}</p> </div>
+                    </div>                                        
+
+                </div>
+            
+                <!-- LevelC - 4 : Commutes -->
+                <div class="levelC_container">
+
+                    <h2 style="text-align: center; "> Commutes </h2>
+
+                    <div class="commute_wrapper">
+
+                        <div class="commute_container">
+
+                            <h2 style="text-align: center; margin-top: 10px; border-bottom: 1px solid black; padding-bottom: 9px"> Work </h2>
+                            <p class="center"> Bus: {{house3.bus_commute_work}} </p>
+                            <p class="center"> Car: {{house3.car_commute_work}}</p>
+                            <p class="center"> Walk: {{house3.walk_commute_work}} <br> &nbsp; &nbsp; &nbsp; &nbsp; {{house3.walk_dist_commute_work}}</p>
+                        </div>
+
+                        <div class="commute_container">
+
+                            <h2 style="text-align: center; margin-top: 10px; border-bottom: 1px solid black; padding-bottom: 9px;"> Gym </h2>
+                            <p class="center"> Bus: {{house3.bus_commute_gym}} </p>
+                            <p class="center"> Car: {{house3.car_commute_gym}}</p>
+                            <p class="center"> Walk: {{house3.walk_commute_gym}} <br> &nbsp; &nbsp; &nbsp; &nbsp; {{house3.walk_dist_commute_gym}}</p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        {% endif %}
+
+        </div>
+
+    </body>
+
+</html>

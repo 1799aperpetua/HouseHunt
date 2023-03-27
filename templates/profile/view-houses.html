@@ -1,0 +1,42 @@
+{% load static %}
+
+<html>
+
+    <head>
+
+        <meta charset="utf-8"/>
+
+        <meta name="viewport" vontent="width-device-width, initial-scale=1, maximum-scale=1"/>
+
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/solar/bootstrap.min.css">
+        
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+        <title> House Hunt | View Houses </title>
+
+    </head>
+
+    {% include 'profile/base.html' %}
+
+    <br>
+
+    <h1> House Hunt | View Houses </h1>
+
+    <div class="container bg-white shadow-md p-5 form-layout" style="width: 800px; ">
+        
+        <h2 style="display: inline-block; text-align: justify;"> List of Houses <span class="right_button"> <a class="btn btn-outline-info navbar-btn" type="button" href="{% url 'update-lat-long' %}"> Update Latitude and Longitude for All Houses </a> </span> </h2>
+
+        <ul class="house-list">
+            {% for house in houses %}
+                <li class="house-item"></li>
+                    <div class="house-address"> Address: &nbsp; {{house.address}} </div>
+                    <div class="house-neighborhood"> Neighborhood: &nbsp; {{house.get_neighborhood_display}} </div>
+                    <div class="house-price"> Price: &nbsp; ${{house.price}}/month </div>
+                    <div class="house-sqft"> Sq. Footage: &nbsp; {{house.sq_footage}}ft </div>
+                    <div class="house-link"> <a href="{% url 'read-house' house.id %}"> View House </a></div>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+    <br>

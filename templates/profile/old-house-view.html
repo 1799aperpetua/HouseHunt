@@ -1,0 +1,79 @@
+{% load static %}
+
+<html>
+
+    <head>
+
+        <meta charset="utf-8"/>
+
+        <meta name="viewport" vontent="width-device-width, initial-scale=1, maximum-scale=1"/>
+
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/solar/bootstrap.min.css">
+        
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+        <title> House Hunt | View Houses </title>
+
+    </head>
+
+    {% include 'profile/base.html' %}
+
+    <br>
+
+    <h1> House Hunt | View a House </h1>
+
+    <br> <br>
+
+    <div class="container bg-white shadow-md p-5 form-layout">
+
+        <h2> {{house.address}} 
+        
+        <br>
+
+        <a class="btn btn-info navbar-btn" type="button" href="{{house.web_address}}"> Link to the Listing </a> </h2>    
+
+        <br>
+
+        <p> Neighborhood: {{house.get_neighborhood_display}}</p>
+
+        <p> Price:  ${{house.price}}/month &nbsp; &nbsp; | &nbsp; &nbsp; Sq. Footage:  {{house.sq_footage}} ft</p>
+
+        <p> {{house.beds}} bedrooms &nbsp; &nbsp; | &nbsp; &nbsp; {{house.bathrooms}} bathrooms</p>
+
+        <p> Type of Home: {{house.get_type_of_home_display}}</p>
+
+        <p> Pet Permission: {{house.get_pet_permission_display}}</p>
+        
+        <br>
+
+        <h3> Scores </h3>
+
+        <p> Food: {{house.food_score}} &nbsp; &nbsp; | &nbsp; &nbsp; Shopping: {{house.shopping_score}}
+            &nbsp; &nbsp; | &nbsp; Errands: {{house.errand_sotres_score}} &nbsp; &nbsp; | &nbsp; Nightlife: {{house.nightlife_score}}
+        </p>
+
+        <p> Small Park Score: {{house.small_park_distance_score}} &nbsp; &nbsp; | &nbsp; &nbsp; Big Park Score: {{house.big_park_distance_score}} </p>
+
+        <br>
+
+        <h3> Notes </h3>
+
+        <p> Dog: {{house.dog_notes}} </p>
+
+        <p> Rooms: {{house.room_notes}} </p>
+
+        <p> Bathrooms: {{house.bathroom_notes}} </p>
+
+        <p> Kitchen: {{house.kitchen_notes}} </p>
+
+        <br> <br>
+
+        <a class="btn btn-info" type="button" href="{% url 'update-house' house.id %}"> Update This House </a>
+
+        <br> <br>
+
+        <a class="btn btn-info" type="button" href="{% url 'view-houses' %}"> Go back to the List of Houses </a>
+
+    </div>
+
+</html>

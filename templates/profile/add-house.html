@@ -1,0 +1,91 @@
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+<html>
+
+    <head>
+
+        <meta charset="utf-8"/>
+
+        <meta name="viewport" content="width-device-width, initial-scale=1, maximum-scale=1"/>
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+        
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/solar/bootstrap.min.css">
+
+        <title> House Hunt | Add a House </title>
+
+    </head>
+
+    {% include 'profile/base.html' %}
+
+    <br>
+
+    <br>
+
+    <h1 class="text-center"> Add a House </h1>
+
+    <hr>
+
+    <div class="add_house_container bg-white shadow-md p-5">
+
+        <div class="image_container"> <img src="{% static 'images/neighborhoods.png' %}" alt="Philly Neighborhoods"> </div>
+
+        <br> <br>
+
+        <div class="form_container">
+
+            <form method="POST" autocomplete="off">
+
+                {% csrf_token %}
+
+                <br>
+
+                {{ form.address|as_crispy_field}}
+
+                <br>
+
+                {{ form.neighborhood|as_crispy_field }}
+                
+                <br>
+
+                {{ form.web_address|as_crispy_field}}
+
+                <br>
+
+                {{ form.price|as_crispy_field}}
+
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                
+                {{ form.beds|as_crispy_field}}
+
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+                {{ form.bathrooms|as_crispy_field}}
+
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+                {{ form.sq_footage|as_crispy_field}}
+
+
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+                {{ form.type_of_home|as_crispy_field}}
+
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+                {{ form.dog_permission|as_crispy_field}}
+
+                <br>
+
+                <input class="btn btn-outline-primary navbar-btn" type="submit" value="Add Home"/>
+
+            </form>
+
+        </div>
+    
+    </div>
+
+</html>

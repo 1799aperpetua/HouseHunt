@@ -1,0 +1,68 @@
+{% load static %}
+
+<html>
+
+    <head>
+
+        <meta charset="utf-8"/>
+
+        <meta name="viewport" vontent="width-device-width, initial-scale=1, maximum-scale=1"/>
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+        
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/solar/bootstrap.min.css">
+
+        <title> House Hunt | View Houses </title>
+
+    </head>
+
+    {% include 'profile/base.html' %}
+
+    <br>
+
+    <h1> House Hunt | Comparing Houses Display </h1>
+
+    <!-- Vision
+    
+        Container across the top for the google map
+
+        3 Containers below containing the mini containers for each of our 3 houses to compare
+        If we only have 2 I want it to only show 2 containers
+
+    -->
+
+    <body>
+        
+        <!-- Comparison Container that will house our 2-3 houses -->
+        <div class="levelA_container">
+            Main Container
+            <!-- House Container 1 -->
+            <div class="levelB_container">
+                House 1
+                <!-- Attribute Container 1 -->
+                <div class="levelC_container">
+                    Level C - House 1 - Container 1
+                </div>
+                    <!-- Attribute Container n -->
+                <div class="levelC_container">
+                    Level C - House 1 - Container 2
+                </div>
+            </div>
+                
+            <!-- House Container n -->
+            <div class="levelB_container">
+                House 2
+                <!-- Attribute Container 1 -->
+                <div class="levelC_container">
+                    Level C - House 2 - Container 1
+                </div>
+                    <!-- Attribute Container n -->
+                <div class="levelC_container">
+                    Level C - House 2 - Container 2
+                </div>
+            </div>
+        
+        </div>
+    </body>
+
+</html>
